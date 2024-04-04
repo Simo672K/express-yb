@@ -1,6 +1,8 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import config from "../conf/config";
 
-const RecipeForm = () => {
+const RecipeForm = ({ uiUpdater }) => {
   const {
     register,
     formState: { errors },
@@ -9,11 +11,22 @@ const RecipeForm = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    axios
+      .post(config.baseUrl, data)
+      .then((p) => {
+        console.log();
+        uiUpdater((prev) => [...prev, p.data]);
+        reset();
+      })
+      .catch((e) => console.error(e));
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="form"
+      onSubmit={handleSubmit(onSubmit)}
+      style={{ marginBottom: 50 }}
+    >
       <textarea
         className="form-control"
         type="text"

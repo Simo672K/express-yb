@@ -1,5 +1,6 @@
 // dependencies
 const express = require("express");
+const cors = require("cors");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -12,8 +13,8 @@ app = express();
 
 // middlewares
 app.use(express.json());
+app.use(cors());
 app.use("/api", routes);
-console.log();
 
 // running the app
 const port = 3000;

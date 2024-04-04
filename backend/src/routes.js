@@ -15,7 +15,7 @@ router.post("/recipes", (req, res) => {
   recipeController
     .createRecipe(newRecipe)
     .then((d) => {
-      res.status(201).send();
+      res.status(201).json(d);
     })
     .catch((e) => console.log(e));
 });
