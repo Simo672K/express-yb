@@ -12,4 +12,4 @@ const recipeShema = new Schema({
   },
 });
 
-module.exports = mongoose.model("User", recipeShema);
+module.exports = mongoose.model("Recipe", recipeShema, "recipes");

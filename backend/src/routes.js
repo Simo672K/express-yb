@@ -1,29 +1,50 @@
 const express = require("express");
 const router = express.Router();
-
-const fs = require("fs");
-const content = JSON.parse(fs.readFileSync(`${__dirname}/mock.json`));
+const recipeController = require("./controllers/recipeController");
 
 router.get("/recipes", (req, res) => {
-  res.json(content);
+  const recipes = recipeController.getAllRecipes();
+
+  recipes.then((r) => {
+    res.json(r);
+  });
 });
 
 router.post("/recipes", (req, res) => {
-  console.log(req.body);
-  res.status(201).json(req.body);
+  const { newRecipe } = req.body;
+  recipeController
+    .createRecipe(newRecipe)
+    .then((d) => {
+      res.status(201).send();
+    })
+    .catch((e) => console.log(e));
 });
 
 router.get("/recipes/:id", (req, res) => {
-  const recipeId = +req.params.id;
-  if (content.length >= recipeId && recipeId > 0) {
-    res.send(content[recipeId - 1]);
-    return;
-  }
-  res.status(404).send("Recipe not found!");
+  const recipe = recipeController.getRecipe(req.params.id);
+
+  recipe
+    .then((r) => {
+      if (r) {
+        res.json(r);
+        return;
+      }
+      res.status(404).send("Recipe not found!");
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 });
 
-router.delete("/recipes/:id", (req, res) => {});
+router.delete("/recipes/:id", (req, res) => {
+  recipeController.deleteRecipe(req.params.id);
+  res.status(204).send();
+});
 
-router.put("/recipes/:id", (req, res) => {});
+router.put("/recipes/:id", (req, res) => {
+  const { updatedRecipe } = req.body;
+  recipeController.setRecipe(req.params.id, updatedRecipe);
+  res.status(204).send();
+});
 
 module.exports = router;
