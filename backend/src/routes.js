@@ -11,9 +11,8 @@ router.get("/recipes", (req, res) => {
 });
 
 router.post("/recipes", (req, res) => {
-  const { newRecipe } = req.body;
   recipeController
-    .createRecipe(newRecipe)
+    .createRecipe(req.body)
     .then((d) => {
       res.status(201).json(d);
     })
@@ -42,8 +41,7 @@ router.delete("/recipes/:id", (req, res) => {
 });
 
 router.put("/recipes/:id", (req, res) => {
-  const { updatedRecipe } = req.body;
-  recipeController.setRecipe(req.params.id, updatedRecipe);
+  recipeController.setRecipe(req.params.id, req.body);
   res.status(204).send();
 });
 

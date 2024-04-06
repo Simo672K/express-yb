@@ -8,7 +8,7 @@ class RecipeController {
 
   static async createRecipe(recipe) {
     try {
-      const newRecipe = new Recipe({ content: recipe });
+      const newRecipe = new Recipe(recipe);
       return await newRecipe.save();
     } catch (err) {
       console.log(err);
@@ -26,7 +26,7 @@ class RecipeController {
 
   static async setRecipe(id, updatedRecipe) {
     const recipe = await Recipe.findById(id);
-    await recipe.updateOne({ content: updatedRecipe });
+    await recipe.updateOne(updatedRecipe);
   }
 
   static async deleteRecipe(id) {

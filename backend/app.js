@@ -1,10 +1,9 @@
 // dependencies
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
 
+const dotenv = require("dotenv");
 dotenv.config();
-console.log(process.env.MONGODB_URL);
 
 const store = require("./src/store");
 const routes = require("./src/routes");
