@@ -1,6 +1,6 @@
-import RecipeForm from "./components/RecipeForm";
-import "bootstrap/dist/css/bootstrap.min.css";
 import HomePage from "./pages/HomePage";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./app.css";
 
 function App() {
   return (
