@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
-import RecipeForm from "../components/RecipeForm";
 import axios from "axios";
 import config from "../conf/config";
 import NewRecipeModal from "../components/NewRecipeModal";
@@ -34,6 +33,7 @@ const HomePage = () => {
           recipes.map((rec) => (
             <RecipeCard
               key={rec._id}
+              href={rec._id}
               title={rec.title}
               ingrediants={rec.ingredients}
             />
